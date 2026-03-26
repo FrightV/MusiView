@@ -3,7 +3,9 @@ package com.musiview.controller;
 import com.musiview.model.Music;
 import com.musiview.service.MusicService;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/musics")
 public class MusicController {
