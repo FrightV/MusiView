@@ -18,4 +18,23 @@ public class LinkUtils {
 
         return "unknown";
     }
+
+    public static String extractYoutubeId(String link) {
+
+        if (link.contains("v=")) {
+            String[] parts=link.split("v=");
+            String id = parts[1];
+
+            int end=id.indexOf("&");
+            if (end !=-1){
+                id=id.substring(0, end);
+            }
+            return id;
+        }
+        if (link.contains("youtu.be/")){
+            String[] parts=link.split("youtu.be/");
+            return parts[1];
+        }
+        return null;
+    }
 }
