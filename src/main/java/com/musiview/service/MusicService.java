@@ -21,6 +21,12 @@ public class MusicService {
         music.setPlatform(platform);
         music.setScore(0);
 
+        if (platform.equals("Youtube")) {
+            String id = LinkUtils.extractYoutubeId(music.getLink());
+            System.out.println("video id: " + id);
+        }
+
         return repository.save(music);
+
     }
 }

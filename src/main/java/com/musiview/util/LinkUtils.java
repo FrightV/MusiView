@@ -4,6 +4,7 @@ public class LinkUtils {
 
     public static String detectPlatform(String link) {
 
+
         if (link.contains("spotify.com")) {
             return "Spotify";
         }
@@ -35,6 +36,7 @@ public class LinkUtils {
             String[] parts=link.split("youtu.be/");
             return parts[1];
         }
+
         return null;
     }
 }
