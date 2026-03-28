@@ -4,14 +4,17 @@ import com.musiview.model.Music;
 import com.musiview.repository.MusicRepository;
 import org.springframework.stereotype.Service;
 import com.musiview.util.LinkUtils;
+import com.musiview.service.YoutubeService;
 
 @Service
 public class MusicService {
 
     private final MusicRepository repository;
+    private final YoutubeService youtubeService;
 
-    public MusicService(MusicRepository repository) {
+    public MusicService(MusicRepository repository, YoutubeService youtubeService) {
         this.repository = repository;
+        this.youtubeService= youtubeService;
     }
 
     public Music save(Music music) {
@@ -23,7 +26,8 @@ public class MusicService {
 
         if (platform.equals("Youtube")) {
             String id = LinkUtils.extractYoutubeId(music.getLink());
-            System.out.println("video id: " + id);
+            String json=youtubeService.buscarTitulo(id);
+            System.out.println(json);
         }
 
         return repository.save(music);
