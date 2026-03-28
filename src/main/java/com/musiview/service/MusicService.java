@@ -4,7 +4,6 @@ import com.musiview.model.Music;
 import com.musiview.repository.MusicRepository;
 import org.springframework.stereotype.Service;
 import com.musiview.util.LinkUtils;
-import com.musiview.service.YoutubeService;
 
 @Service
 public class MusicService {
@@ -26,10 +25,11 @@ public class MusicService {
 
         if (platform.equals("Youtube")) {
             String id = LinkUtils.extractYoutubeId(music.getLink());
-            String json=youtubeService.buscarTitulo(id);
-            System.out.println(json);
-        }
+            String[] data=youtubeService.dataSearch(id);
 
+            music.setName(data[0]);
+            music.setCoverUrl(data[1]);
+        }
         return repository.save(music);
     }
 }
