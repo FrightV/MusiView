@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MusiView</title>
+</head>
+
+<body>
+
+<h1>Playlist</h1>
+
+<input type="text" id="link" placeholder="Paste the Music Link">
+<button onclick="add()">Add</button>
+
+<hr>
+
+<div id="list"></div>
+
+<script>
+
+    async function add() {
+
+        const link = document.getElementById("link").value;
+
+        await fetch("http://localhost:8080/musics", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ link })
+        });
+
+        load();
+    }
+
+    async function load() {
+
+        const res = await fetch("http://localhost:8080/musics");
+        const musics = await res.json();
+
+        const list = document.getElementById("list");
+        list.innerHTML = "";
+
+        musics.forEach(m => {
+
+            const div = document.createElement("div");
+
+            div.innerHTML = `
+            <img src="${m.coverUrl}" width="120">
+            <p><b>${m.name}</b></p>
+            <p>${m.artist || ""}</p>
+            <hr>
+        `;
+
+            list.appendChild(div);
+        });
+    }
+    load();
+
+</script>
+
+</body>
+</html>

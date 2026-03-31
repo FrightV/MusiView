@@ -4,7 +4,11 @@ import com.musiview.model.Music;
 import com.musiview.repository.MusicRepository;
 import org.springframework.stereotype.Service;
 import com.musiview.util.LinkUtils;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
+import java.util.List;
+
+@CrossOrigin
 @Service
 public class MusicService {
 
@@ -27,9 +31,17 @@ public class MusicService {
             String id = LinkUtils.extractYoutubeId(music.getLink());
             String[] data=youtubeService.dataSearch(id);
 
-            music.setName(data[0]);
-            music.setCoverUrl(data[1]);
+            if (data != null) {
+                music.setName(data[0]);
+                music.setCoverUrl(data[1]);
+            } else {
+                System.out.println("Error finding YouTube data");
+            }
         }
         return repository.save(music);
+    }
+
+    public List<Music> listAll() {
+        return repository.findAll();
     }
 }

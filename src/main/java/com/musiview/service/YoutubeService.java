@@ -27,10 +27,16 @@ public class YoutubeService {
                 JsonNode snippet = items.get(0).get("snippet");
 
                 String title = snippet.get("title").asText();
-                String cover = snippet.get("thumbnails")
-                        .get("high")
-                        .get("url")
-                        .asText();
+                JsonNode thumbnails=snippet.get("thumbnails");
+                String cover;
+
+                if (thumbnails.has("high")) {
+                    cover=thumbnails.get("high").get("url").asText();
+                } else if (thumbnails.has("medium")) {
+                    cover=thumbnails.get("medium").get("url").asText();
+                } else {
+                    cover=thumbnails.get("default").get("url").asText();
+                }
 
                 System.out.println("title: " + title);
                 System.out.println("cover: " + cover);
@@ -38,6 +44,7 @@ public class YoutubeService {
                 return new String[]{title, cover};
             }
         } catch (Exception e) {
+            System.out.println("Error processing JSON:");
             e.printStackTrace();
         }
         return null;

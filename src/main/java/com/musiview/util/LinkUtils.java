@@ -22,21 +22,23 @@ public class LinkUtils {
 
     public static String extractYoutubeId(String link) {
 
-        if (link.contains("v=")) {
-            String[] parts=link.split("v=");
-            String id = parts[1];
+        if (link.contains("youtu.be/")) {
+            String id = link.split("youtu.be/")[1];
 
-            int end=id.indexOf("&");
-            if (end !=-1){
-                id=id.substring(0, end);
+            if (id.contains("?")) {
+                id = id.split("\\?")[0];
             }
             return id;
         }
-        if (link.contains("youtu.be/")){
-            String[] parts=link.split("youtu.be/");
-            return parts[1];
-        }
 
+        if (link.contains("watch?v=")) {
+            String id = link.split("v=")[1];
+
+            if (id.contains("&")) {
+                id = id.split("&")[0];
+            }
+            return id;
+        }
         return null;
     }
 }
