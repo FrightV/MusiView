@@ -11,6 +11,7 @@ public class Music {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long id;
 
     private String name;
@@ -24,4 +25,8 @@ public class Music {
     private String platform;
 
     private Integer score;
+
+    @ManyToOne
+    @JoinColumn(name="playlist_id")
+    private Playlist playlist;
 }

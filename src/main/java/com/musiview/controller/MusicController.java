@@ -18,8 +18,8 @@ public class MusicController {
     }
 
     @PostMapping
-    public Music add(@RequestBody Music music) {
-        return service.save(music);
+    public Music add(@RequestBody Music music, @RequestParam Long playlistId) {
+        return service.save(music, playlistId);
     }
 
     @GetMapping
