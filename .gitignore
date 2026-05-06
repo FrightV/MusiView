@@ -31,3 +31,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### ###
+essential.properties
+src/main/resources/essential.properties
