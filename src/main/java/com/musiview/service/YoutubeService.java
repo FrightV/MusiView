@@ -1,4 +1,5 @@
 package com.musiview.service;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -6,7 +7,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
 public class YoutubeService {
-    private final String API_KEY="";
+    @Value("${youtube.api.key}")
+    private String API_KEY;
 
     public String[] dataSearch(String videoId)  {
         String url="https://www.googleapis.com/youtube/v3/videos"
