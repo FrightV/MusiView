@@ -1,7 +1,23 @@
 <!DOCTYPE html>
-<html>
+<html lang="ENG">
 <head>
     <title>MusiView</title>
+    <style>
+        body{
+            font-family: Arial;
+            padding: 20px;
+        }
+
+        button {
+            margin: 5px;
+            padding: 8px 12px;
+            cursor: pointer;
+        }
+
+        img {
+            border-radius: 10px;
+        }
+    </style>
 </head>
 
 <body>
@@ -13,16 +29,32 @@
 
 <hr>
 
+<h2>Playlists</h2>
+<div id="playlists"></div>
+
+<hr>
+
 <div id="list"></div>
 
 <script>
 
+    let currentPlaylistId = null;
+
     async function add() {
 
         const link = document.getElementById("link").value;
-        const playlistId=1;
 
-        await fetch(`http://localhost:8080/musics?playlistId=${playlistId}`, {
+        if (!link.trim()) {
+            alert("Paste a music link")
+            return;
+        }
+
+        if (!currentPlaylistId) {
+            alert("Select a playlist first");
+            return;
+        }
+
+        await fetch(`http://localhost:8080/musics?playlistId=${currentPlaylistId}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -35,8 +67,9 @@
 
     async function load() {
 
-        const playlistId = 1;
-        const res = await fetch(`http://localhost:8080/musics?playlistId=${playlistId}`);
+        if (!currentPlaylistId) return;
+
+        const res = await fetch(`http://localhost:8080/musics?playlistId=${currentPlaylistId}`);
         const musics = await res.json();
 
         const list = document.getElementById("list");
@@ -56,26 +89,64 @@
             list.appendChild(div);
         });
     }
-    load();
+
+    async function loadPlaylists() {
+
+        const res = await fetch("http://localhost:8080/playlists");
+        const playlists = await res.json();
+
+        const div = document.getElementById("playlists");
+
+        div.innerHTML = "";
+
+        playlists.forEach(p => {
+
+            const btn = document.createElement("button");
+
+            btn.textContent = p.name;
+
+            btn.onclick = () => {
+
+                currentPlaylistId = p.id;
+
+                document.querySelectorAll("#playlists button")
+                    .forEach(b => b.style.background = "");
+
+                btn.style.background = "lightgreen";
+
+                load();
+            };
+
+            div.appendChild(btn);
+        });
+    }
+    loadPlaylists();
 
 </script>
 
+<input type="text" id="playlistName" placeholder="Playlist name">
 <button onclick="createPlaylist()">Create Playlist</button>
 
 <script>
     function createPlaylist() {
 
+        const name=document.getElementById("playlistName").value;
         fetch("http://localhost:8080/playlists", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                name: "Banger"
+                name
             })
         })
             .then(res => res.json())
-            .then(data => console.log("Playlist created:",data))
+            .then(data => {
+                console.log("Playlist created:",data);
+                loadPlaylists();
+
+                document.getElementById("playlistName").value="";
+            })
             .catch(err => console.error(err));
     }
 </script>

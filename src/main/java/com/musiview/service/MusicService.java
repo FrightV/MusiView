@@ -30,6 +30,9 @@ public class MusicService {
         music.setPlaylist(playlist);
 
         String platform= LinkUtils.detectPlatform(music.getLink());
+        if (music.getLink()==null||music.getLink().isBlank()) {
+            throw new RuntimeException("Link cannot be empty");
+        }
 
         music.setPlatform(platform);
         music.setScore(0);
@@ -48,7 +51,7 @@ public class MusicService {
         return repository.save(music);
     }
 
-    public List<Music> listAll() {
-        return repository.findAll();
+    public List<Music> listByPlaylist(Long playlistId) {
+        return repository.findByPlaylistId(playlistId);
     }
 }

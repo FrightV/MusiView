@@ -23,8 +23,8 @@ public class MusicController {
     }
 
     @GetMapping
-        public List<Music> list() {
-            return service.listAll();
+    public List<Music> list(@RequestParam Long playlistId) {
+        return service.listByPlaylist(playlistId);
     }
 }
 
