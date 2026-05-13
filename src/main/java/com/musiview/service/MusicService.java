@@ -54,4 +54,18 @@ public class MusicService {
     public List<Music> listByPlaylist(Long playlistId) {
         return repository.findByPlaylistId(playlistId);
     }
+
+    public void delete(Long id) {
+        repository.deleteById(id);
+    }
+
+    public Music update(Long id, Music updateMusic) {
+        Music music=repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Music not found"));
+        music.setName(updateMusic.getName());
+        music.setArtist(updateMusic.getArtist());
+        music.setCoverUrl(updateMusic.getCoverUrl());
+
+        return repository.save(music);
+    }
 }
