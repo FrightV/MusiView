@@ -17,8 +17,9 @@ public class Playlist {
     private Long id;
     private String name;
 
-    @OneToMany(mappedBy="playlist")
+    @OneToMany(mappedBy="playlist", cascade=CascadeType.ALL)
     @JsonIgnore
     private List<Music> musics;
+
 
 }

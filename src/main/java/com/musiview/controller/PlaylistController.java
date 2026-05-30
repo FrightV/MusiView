@@ -24,4 +24,12 @@ public class PlaylistController {
     public List<Playlist> list() {
         return service.list();
     }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
+        service.delete(id);
+    }
+
+    @PutMapping("/{id}")
+    public Playlist update(@PathVariable Long id, @RequestBody Playlist updated) { return service.update(id, updated); }
 }

@@ -22,4 +22,12 @@ public class PlaylistService {
     public Playlist searchId(Long id) {
         return repository.findById(id).orElseThrow();
     }
+    public void delete(Long id) { repository.deleteById(id);}
+
+    public Playlist update(Long id, Playlist updated) {
+        Playlist playlist= repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Playlist not found"));
+        playlist.setName(updated.getName());
+        return repository.save(playlist);
+    }
 }
