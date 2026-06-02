@@ -2,6 +2,20 @@ const params=new URLSearchParams(window.location.search);
 const playlistId=params.get("id");
 console.log(playlistId);
 
+async function loadPlaylistInfo() {
+    const res=await fetch("http://localhost:8080/playlists");
+    const playlists=await res.json();
+    const playlist=playlists.find(
+        p => p.id == playlistId
+    );
+    if (!playlist) return;
+    document.title=playlist.name;
+    document.getElementById("playlistTitle")
+        .textContent=playlist.name;
+}
+loadPlaylistInfo();
+load();
+
 async function add() {
 
 const link = document.getElementById("link").value;
@@ -18,7 +32,7 @@ headers: {
 },
 body: JSON.stringify({ link })
 });
-
+alert("Music added!")
 load();
 }
 
@@ -32,29 +46,30 @@ list.innerHTML = "";
 
 musics.forEach(m => {
 
-const div = document.createElement("div");
+const card = document.createElement("div");
+card.className="music-card";
 
-div.innerHTML = `
+card.innerHTML = `
             <img src="${m.coverUrl}" width="120">
             <p><b>${m.name}</b></p>
             <p>${m.artist || ""}</p>
 
-            <button onclick="deleteMusic(${m.id})">
-                Delete
-            </button>
-
             <button onclick='editMusic(${JSON.stringify(m)})'>
                 Edit
+            </button>
+            <button onclick="deleteMusic(${m.id})">
+                Delete
             </button>
             <hr>
         `;
 
-list.appendChild(div);
+list.appendChild(card);
 });
 }
 load();
 
 async function deleteMusic(id) {
+    if (!confirm("Delete this music?")) return;
 await fetch(`http://localhost:8080/musics/${id}`,{
     method: "DELETE"
 });

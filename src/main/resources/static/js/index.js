@@ -9,9 +9,12 @@ async function loadPlaylists() {
 
     playlists.forEach(p => {
 
+        const title=document.createElement("h3");
+        title.textContent=p.name;
+
         const btn = document.createElement("button");
 
-        btn.textContent = p.name;
+        btn.textContent = "Open";
 
         btn.onclick = () => {
             window.location.href = `playlist.html?id=${p.id}`;
@@ -39,18 +42,25 @@ async function loadPlaylists() {
 
         deleteBtn.textContent = "Delete";
         deleteBtn.onclick = async () => {
+            if (!confirm("Delete this playlist?")) return;
+            alert("Playlist deleted!")
             await fetch(`http://localhost:8080/playlists/${p.id}`, {
                 method: "DELETE"
             });
             loadPlaylists();
         };
 
+        const actions=document.createElement("div");
+        actions.className="playlist-actions";
+        actions.appendChild(btn);
+        actions.appendChild(editBtn);
+        actions.appendChild(deleteBtn);
+
         const card=document.createElement("div");
         card.className="playlist-card";
 
-        card.appendChild(btn);
-        card.appendChild(editBtn);
-        card.appendChild(deleteBtn);
+        card.appendChild(title);
+        card.appendChild(actions);
 
         div.appendChild(card);
     });
@@ -72,6 +82,7 @@ function createPlaylist() {
     .then(res => res.json())
     .then(data => {
         console.log("Playlist created:",data);
+        alert("Playlist created!")
         loadPlaylists();
         document.getElementById("playlistName").value="";
     })
