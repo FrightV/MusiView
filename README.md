@@ -223,10 +223,3 @@ This project was developed with a focus on Full Stack learning, practicing:
 * DOM manipulation with JavaScript
 * Frontend ↔ Backend communication
 * Real-world project organization
-
-```
-```
-* Organização de projetos reais
-
-```
-```
