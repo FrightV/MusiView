@@ -1,47 +1,47 @@
 # 🎵 MusiView
 
-MusiView é uma aplicação web para gerenciamento de playlists musicais desenvolvida com Java, Spring Boot e JavaScript.
+MusiView is a web application for music playlist management developed with Java, Spring Boot, and JavaScript.
 
-O projeto permite criar playlists, adicionar músicas através de links do YouTube e organizar sua biblioteca musical de forma simples e intuitiva.
-
----
-
-## 🚀 Funcionalidades
-
-### 📂 Gerenciamento de Playlists
-
-* Criar playlists
-* Editar nome de playlists
-* Excluir playlists
-* Navegar entre playlists
-
-### 🎵 Gerenciamento de Músicas
-
-* Adicionar músicas através de links do YouTube
-* Obter automaticamente:
-
-  * título da música
-  * thumbnail/capa do vídeo
-* Editar:
-
-  * nome da música
-  * artista
-  * capa personalizada
-* Excluir músicas
-
-### 🌐 Integração com YouTube API
-
-Ao adicionar um link do YouTube, o sistema:
-
-1. Detecta a plataforma
-2. Extrai o ID do vídeo
-3. Consulta a API do YouTube
-4. Obtém o título e a thumbnail automaticamente
-5. Salva a música na playlist selecionada
+The project allows users to create playlists, add songs through YouTube links, and organize their music library in a simple and intuitive way.
 
 ---
 
-## 🛠 Tecnologias Utilizadas
+## 🚀 Features
+
+### 📂 Playlist Management
+
+* Create playlists
+* Edit playlist names
+* Delete playlists
+* Navigate between playlists
+
+### 🎵 Music Management
+
+* Add songs through YouTube links
+* Automatically retrieve:
+
+  * song title
+  * video thumbnail/cover
+* Edit:
+
+  * song name
+  * artist
+  * custom cover image
+* Delete songs
+
+### 🌐 YouTube API Integration
+
+When a YouTube link is added, the system:
+
+1. Detects the platform
+2. Extracts the video ID
+3. Queries the YouTube API
+4. Retrieves the title and thumbnail automatically
+5. Saves the song to the selected playlist
+
+---
+
+## 🛠 Technologies Used
 
 ### Backend
 
@@ -57,7 +57,7 @@ Ao adicionar um link do YouTube, o sistema:
 * CSS3
 * JavaScript (Fetch API)
 
-### Banco de Dados
+### Database
 
 * JPA/Hibernate
 * H2 Database
@@ -70,17 +70,17 @@ Ao adicionar um link do YouTube, o sistema:
 
 ## 📸 Screenshots
 
-### Tela de Playlists
+### Playlists Screen
 
 ![Playlists](assets/playlists.png)
 
-### Tela de Músicas
+### Songs Screen
 
 ![Musics](assets/musics.png)
 
 ---
 
-## 🏗 Estrutura do Projeto
+## 🏗 Project Structure
 
 ```text
 src
@@ -107,94 +107,96 @@ src
 
 ---
 
-## 🎮 Como Utilizar
+## 🎮 How to Use
 
-### 1. Criar uma Playlist
+### 1. Create a Playlist
 
-Na tela inicial:
+On the home screen:
 
-* Digite o nome da playlist
-* Clique em **Create Playlist**
+* Enter the playlist name
+* Click **Create Playlist**
 
-### 2. Abrir uma Playlist
+### 2. Open a Playlist
 
-Clique em **Open** na playlist desejada.
+Click **Open** on the desired playlist.
 
-### 3. Adicionar uma Música
+### 3. Add a Song
 
-Cole um link do YouTube:
+Paste a YouTube link:
 
 ```text
 https://www.youtube.com/watch?v=XXXXXXXXXXX
 ```
 
-Clique em **Add**.
+Click **Add**.
 
-O sistema buscará automaticamente:
+The system will automatically retrieve:
 
-* Nome do vídeo
+* Video title
 * Thumbnail
 
-### 4. Editar uma Música
+### 4. Edit a Song
 
-Clique em **Edit** para alterar:
+Click **Edit** to change:
 
-* Nome
-* Artista
-* URL da capa
+* Name
+* Artist
+* Cover image URL
 
-### 5. Excluir uma Música
+### 5. Delete a Song
 
-Clique em **Delete**.
+Click **Delete**.
 
 ---
 
-## ⚙️ Configuração
+## ⚙️ Setup
 
-### Clonar o projeto
+### Clone the project
 
 ```bash
-git clone https://github.com/seu-usuario/musiview.git
+git clone https://github.com/your-username/musiview.git
 ```
 
-### Entrar na pasta
+### Enter the project directory
 
 ```bash
 cd musiview
 ```
 
-### Configurar a chave da API do YouTube
+### Configure the YouTube API Key
 
-Crie um arquivo:
+Create the following file:
 
 ```properties
 src/main/resources/essential.properties
 ```
 
-Conteúdo:
+For security reasons, the YouTube API key is not included in the repository.
 
-Por motivos de segurança, a chave da API do YouTube não é incluída no repositório.
+Each user must create their own API key and configure it in the `essential.properties` file.
 
-Cada usuário deverá criar sua própria chave e configurá-la no arquivo `essential.properties`.
+To create an API key:
 
-Para criar uma chave da API:
-1. Crie uma chave no Google Cloud Console.
-2. Ative a YouTube Data API v3.
+1. Create a key in Google Cloud Console.
+2. Enable the YouTube Data API v3.
+
+Official documentation:
 
 https://developers.google.com/youtube/v3/getting-started
 
+Add the following content:
 
 ```properties
-youtube.api.key=SUA_CHAVE_AQUI
+youtube.api.key=YOUR_API_KEY_HERE
 ```
 
-### Executar
+### Run the application
 
 ```bash
 ./mvnw spring-boot:run
 ```
 
-ou
+or
 
 ```bash
 mvn spring-boot:run
@@ -202,24 +204,28 @@ mvn spring-boot:run
 
 ---
 
-## 📌 Próximas Funcionalidades
+## 📌 Future Features
 
-* Sistema de ranking entre músicas
-* Upload de imagens para capas personalizadas
-* Estatísticas das playlists
+* Song ranking system
+* Custom cover image upload
+* Playlist statistics
 
 ---
 
-## 👨‍💻 Objetivo do Projeto
+## 👨‍💻 Project Goal
 
-Este projeto foi desenvolvido com foco em aprendizado Full Stack, praticando:
+This project was developed with a focus on Full Stack learning, practicing:
 
-* Desenvolvimento Backend com Spring Boot
-* APIs REST
-* Banco de Dados Relacional
-* Integração com APIs externas
-* Manipulação de DOM com JavaScript
-* Comunicação Frontend ↔ Backend
+* Backend development with Spring Boot
+* REST APIs
+* Relational databases
+* External API integration
+* DOM manipulation with JavaScript
+* Frontend ↔ Backend communication
+* Real-world project organization
+
+```
+```
 * Organização de projetos reais
 
 ```
